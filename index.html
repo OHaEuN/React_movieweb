@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<body>
+    <div id="root"></div>
+</body>
+<script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script type ="text/babel">
+
+
+        function Time() {
+            const [amout, setAmout] = useState(0);
+            const [fliped, setFliped] = useState(false);
+            const onChange = (e) => {
+                setAmout(e.target.value);
+            };
+            const reset = () => setAmout(0);
+            const onFlip = () => {
+                reset();
+                setFliped((current) => !current);
+            };
+            return (
+                <div>
+                <h3>Time converter</h3>
+                <div>
+                    <label htmlFor="minutes">Minutes</label>
+                    <input
+                    value={fliped ? amout * 60 : amout}
+                    id="minutes"
+                    type="number"
+                    onChange={onChange}
+                    disabled={fliped}
+                    ></input>
+                </div>
+                <div>
+                    <label htmlFor="hours">Hours</label>
+                    <input
+                    value={fliped ? amout : Math.round(amout / 60)}
+                    id="hours"
+                    type="number"
+                    onChange={onChange}
+                    disabled={!fliped}
+                    ></input>
+                </div>
+                <button onClick={reset}>Reset</button>
+                <button onClick={onFlip}>Flip</button>
+                </div>
+            );
+        }
+        
+        function Distance() {
+            const [amout, setAmout] = useState(0);
+            const [fliped, setFliped] = useState(false);
+            const onChange = (e) => {
+                setAmout(e.target.value);
+            };
+            const reset = () => setAmout(0);
+            const onFlip = () => {
+                reset();
+                setFliped((current) => !current);
+            };
+            return (
+                <div>
+                <h3>Distance converter</h3>
+                <div>
+                    <label htmlFor="Km">Km</label>
+                    <input
+                    value={fliped ? amout * 1000 : amout}
+                    id="Km"
+                    type="number"
+                    onChange={onChange}
+                    disabled={fliped}
+                    ></input>
+                </div>
+                <div>
+                    <label htmlFor="m">m</label>
+                    <input
+                    value={fliped ? amout : Math.round(amout / 1000)}
+                    id="m"
+                    type="number"
+                    onChange={onChange}
+                    disabled={!fliped}
+                    ></input>
+                </div>
+                <button onClick={reset}>Reset</button>
+                <button onClick={onFlip}>Flip</button>
+                </div>
+            );
+        }
+
+        function App() {
+            const [index, setIndex] = useState("xx");
+            const onSelect = (e) => {
+            setIndex(e.target.value);
+            };
+        return (
+            <div className="App">
+            <h1>Unit Converter</h1>
+            <select value={index} onChange={onSelect}>
+                <option value="xx">Select your unit</option>
+                <option value="0">Time</option>
+                <option value="1">Distance</option>
+            </select>
+            <hr />
+            {index === "xx" ? "please select your converter" : null}
+            {index === "0" ? <Time /> : null}
+            {index === "1" ? <Distance /> : null}
+            </div>  
+            );
+        }
+    
+    const root=document.getElementById("root");
+    ReactDOM.render(<App />, root);
+</script>
+</html>
